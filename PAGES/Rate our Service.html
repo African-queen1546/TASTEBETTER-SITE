@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rate Our Service | Tastebetter</title>
+  <link rel="stylesheet" href="../CSS/style.CSS" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-grid">
+      <a class="brand" href="../index.html"><span>J</span>OSHB's DEPO</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="site-nav" id="siteNav">
+        <a href="../index.html">Home</a>
+        <a href="About us.html">About</a>
+        <a href="services.html">Services</a>
+        <a href="online services.html">Online</a>
+        <a href="wholesale.html">Wholesale</a>
+        <a href="contact us.html">Contact</a>
+        <a href="FAQs.html">FAQs</a>
+        <a href="PAGES/Support.html">Support</a>
+      </nav>
+    </div>
+  </header>
+  <main>
+    <section class="page-header container">
+      <p class="eyebrow">Rate us</p>
+      <h1>Share feedback on your Joshb's Depo experience.</h1>
+      <p class="page-intro">Your input helps Tastebetter improve depot service, online ordering, and wholesale support.</p>
+    </section>
+    <section class="page-content container">
+      <div class="page-grid">
+        <div>
+          <article class="info-card">
+            <h3>Tell us what worked</h3>
+            <p>Share your experience with pickup speed, product availability, or our staff support.</p>
+          </article>
+          <article class="info-card">
+            <h3>Suggest improvements</h3>
+            <p>Let us know how we can make the depot and online service easier for your business.</p>
+          </article>
+        </div>
+        <aside class="order-card">
+          <h3>Feedback form</h3>
+          <form data-feedback>
+            <label for="customer-name">Name</label>
+            <input type="text" id="customer-name" name="customer-name" placeholder="Your name" required />
+            <label for="rating">Rating</label>
+            <select id="rating" name="rating">
+              <option>Excellent</option>
+              <option>Good</option>
+              <option>Fair</option>
+              <option>Needs improvement</option>
+            </select>
+            <label for="feedback-note">Feedback</label>
+            <textarea id="feedback-note" name="feedback-note" placeholder="What can we improve?"></textarea>
+            <button class="btn btn-primary" type="submit">Submit Feedback</button>
+            <div class="form-feedback"></div>
+          </form>
+        </aside>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <p>Joshb's Depo · Tastebetter</p>
+        <p>Feedback helps us deliver better depot experiences.</p>
+      </div>
+      <nav class="footer-nav">
+        <a href="../index.html">Home</a>
+        <a href="About us.html">About</a>
+        <a href="contact us.html">Contact</a>
+      </nav>
+    </div>
+  </footer>
+  <script src="../app.js"></script>
+</body>
+</html>

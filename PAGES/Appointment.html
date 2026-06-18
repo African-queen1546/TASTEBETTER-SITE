@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Book Appointment | Joshb's Depo</title>
+  <link rel="stylesheet" href="../CSS/style.CSS" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-grid">
+      <a class="brand" href="../index.html"><span>J</span>OSHB's DEPO</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="site-nav" id="siteNav">
+        <a href="../index.html">Home</a>
+        <a href="About us.html">About</a>
+        <a href="services.html">Services</a>
+        <a href="online services.html">Online</a>
+        <a href="wholesale.html">Wholesale</a>
+        <a href="contact us.html">Contact</a>
+        <a href="FAQs.html">FAQs</a>
+        <a href="PAGES/Support.html">Support</a>
+      </nav>
+    </div>
+  </header>
+  <main>
+    <section class="page-header container">
+      <p class="eyebrow">Appointment</p>
+      <h1>Schedule your depot visit or order pickup with ease.</h1>
+      <p class="page-intro">Choose a date and time to visit Joshb's Depo, confirm your order details, and arrive ready for a fast hand-off.</p>
+    </section>
+    <section class="page-content container">
+      <div class="page-grid">
+        <div>
+          <article class="info-card">
+            <h3>Why book ahead?</h3>
+            <p>Booking your visit helps our team prepare your depot order, reserve a pickup lane, and reduce wait time on arrival.</p>
+          </article>
+          <article class="info-card">
+            <h3>What to expect</h3>
+            <p>We confirm your preferred slot, review your pickup items, and ensure your order is ready when you arrive at the depot.</p>
+          </article>
+          <article class="info-card">
+            <h3>Need help?</h3>
+            <p>If you have large volume needs or need a custom pickup plan, contact us and we’ll walk you through the best option.</p>
+          </article>
+        </div>
+        <aside class="order-card">
+          <h3>Book a visit</h3>
+          <form id="appointment-form" data-feedback>
+            <label for="full-name">Full name</label>
+            <input type="text" id="full-name" name="full-name" placeholder="Your name" required />
+            <label for="visit-date">Preferred date</label>
+            <input type="date" id="visit-date" name="visit-date" required />
+            <label for="visit-time">Preferred time</label>
+            <input type="time" id="visit-time" name="visit-time" required />
+            <label for="order-notes">Order notes</label>
+            <textarea id="order-notes" name="order-notes" placeholder="Ingredients or pickup details"></textarea>
+            <button class="btn btn-primary" type="submit">Request Appointment</button>
+            <div class="form-feedback"></div>
+          </form>
+        </aside>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <p>Joshb's Depo · Tastebetter</p>
+        <p>Book a depot pickup or order visit today.</p>
+      </div>
+      <nav class="footer-nav">
+        <a href="../index.html">Home</a>
+        <a href="contact us.html">Contact</a>
+        <a href="FAQs.html">FAQs</a>
+      </nav>
+    </div>
+  </footer>
+  <script src="../app.js"></script>
+</body>
+</html>

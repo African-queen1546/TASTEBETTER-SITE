@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FAQs | Joshb's Depo · Tastebetter</title>
+  <link rel="stylesheet" href="../CSS/style.CSS" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f9f7f4;
+      color: #1a1a1a;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── Header ── */
+    .site-header {
+      background: #fff;
+      border-bottom: 1px solid #e8e4de;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+    .header-grid {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+      gap: 16px;
+    }
+    .brand {
+      font-size: 1.1rem;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      color: #1a1a1a;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+    .brand span { color: #c8502a; }
+    .site-nav { display: flex; gap: 4px; flex-wrap: wrap; }
+    .site-nav a {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: #444;
+      text-decoration: none;
+      padding: 6px 10px;
+      border-radius: 6px;
+      transition: background 0.15s, color 0.15s;
+    }
+    .site-nav a:hover,
+    .site-nav a[href="FAQs.html"] {
+      background: #fdf0eb;
+      color: #c8502a;
+    }
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+    }
+    .nav-toggle span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: #1a1a1a;
+      border-radius: 2px;
+    }
+
+    /* ── Hero ── */
+    .page-header {
+      padding: 72px 24px 56px;
+      text-align: center;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .eyebrow {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #c8502a;
+      background: #fdf0eb;
+      padding: 5px 14px;
+      border-radius: 100px;
+      margin-bottom: 20px;
+    }
+    .page-header h1 {
+      font-size: clamp(1.6rem, 4vw, 2.6rem);
+      font-weight: 800;
+      line-height: 1.2;
+      color: #1a1a1a;
+      margin-bottom: 14px;
+      max-width: 680px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .page-intro {
+      font-size: 1rem;
+      color: #666;
+      max-width: 520px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* ── Search bar ── */
+    .faq-search-wrap {
+      max-width: 520px;
+      margin: 0 auto 56px;
+      padding: 0 24px;
+    }
+    .faq-search {
+      width: 100%;
+      padding: 13px 18px 13px 42px;
+      font-family: inherit;
+      font-size: 0.92rem;
+      border: 1.5px solid #e0dbd4;
+      border-radius: 10px;
+      background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' stroke='%23999' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='7' cy='7' r='5'/%3E%3Cline x1='10.5' y1='10.5' x2='14' y2='14'/%3E%3C/svg%3E") no-repeat 14px center;
+      outline: none;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+    .faq-search:focus {
+      border-color: #c8502a;
+      box-shadow: 0 0 0 3px rgba(200,80,42,0.12);
+    }
+    .faq-search::placeholder { color: #aaa; }
+
+    /* ── Category tabs ── */
+    .faq-tabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 0 24px 40px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .faq-tab {
+      font-family: inherit;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: #555;
+      background: #fff;
+      border: 1.5px solid #e0dbd4;
+      border-radius: 100px;
+      padding: 7px 16px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .faq-tab:hover { border-color: #c8502a; color: #c8502a; }
+    .faq-tab.active { background: #c8502a; border-color: #c8502a; color: #fff; }
+
+    /* ── FAQ content ── */
+    .page-content {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 0 24px 80px;
+    }
+    .faq-category { margin-bottom: 48px; }
+    .faq-category[data-hidden="true"] { display: none; }
+
+    .category-title {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: #c8502a;
+      margin-bottom: 16px;
+      padding-bottom: 10px;
+      border-bottom: 1.5px solid #e8e4de;
+    }
+    .card-list { display: flex; flex-direction: column; gap: 2px; }
+
+    .faq-card {
+      background: #fff;
+      border: 1px solid #e8e4de;
+      border-radius: 10px;
+      overflow: hidden;
+      transition: box-shadow 0.15s;
+    }
+    .faq-card:hover { box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
+    .faq-card[data-hidden="true"] { display: none; }
+
+    .faq-toggle {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      padding: 18px 20px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      text-align: left;
+      font-family: inherit;
+    }
+    .faq-toggle span:first-child {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #1a1a1a;
+      line-height: 1.4;
+    }
+    .toggle-icon {
+      font-size: 1.3rem;
+      font-weight: 400;
+      color: #c8502a;
+      flex-shrink: 0;
+      transition: transform 0.2s;
+      line-height: 1;
+    }
+    .faq-card.open .toggle-icon { transform: rotate(45deg); }
+    .faq-content {
+      display: none;
+      padding: 0 20px 18px;
+      border-top: 1px solid #f0ece6;
+    }
+    .faq-card.open .faq-content { display: block; }
+    .faq-content p {
+      font-size: 0.9rem;
+      color: #555;
+      line-height: 1.7;
+    }
+    .faq-content a {
+      color: #c8502a;
+      font-weight: 500;
+      text-decoration: none;
+    }
+    .faq-content a:hover { text-decoration: underline; }
+
+    /* no-results message */
+    .no-results {
+      display: none;
+      text-align: center;
+      padding: 48px 0;
+      color: #aaa;
+      font-size: 0.95rem;
+    }
+
+    /* ── CTA ── */
+    .still-have-questions {
+      background: #1a1a1a;
+      padding: 64px 24px;
+      text-align: center;
+    }
+    .questions-content h2 {
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 12px;
+    }
+    .questions-content p {
+      color: #aaa;
+      font-size: 0.95rem;
+      margin-bottom: 28px;
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .questions-actions {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .btn {
+      font-family: inherit;
+      font-size: 0.88rem;
+      font-weight: 600;
+      padding: 12px 24px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: all 0.15s;
+      display: inline-block;
+    }
+    .btn-primary { background: #c8502a; color: #fff; }
+    .btn-primary:hover { background: #b04424; }
+    .btn-secondary { background: rgba(255,255,255,0.1); color: #fff; border: 1px solid rgba(255,255,255,0.2); }
+    .btn-secondary:hover { background: rgba(255,255,255,0.18); }
+    .btn-ghost { color: #aaa; font-size: 0.85rem; padding: 12px 16px; }
+    .btn-ghost:hover { color: #fff; }
+
+    /* ── Footer ── */
+    .site-footer {
+      background: #fff;
+      border-top: 1px solid #e8e4de;
+      padding: 32px 24px;
+      margin-top: auto;
+    }
+    .footer-grid {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .site-footer p { font-size: 0.82rem; color: #888; line-height: 1.6; }
+    .site-footer p:first-child { font-weight: 600; color: #444; }
+    .footer-nav { display: flex; gap: 20px; flex-wrap: wrap; }
+    .footer-nav a { font-size: 0.82rem; color: #666; text-decoration: none; transition: color 0.15s; }
+    .footer-nav a:hover { color: #c8502a; }
+
+    @media (max-width: 640px) {
+      .site-nav { display: none; flex-direction: column; position: absolute; top: 64px; left: 0; right: 0; background: #fff; border-bottom: 1px solid #e8e4de; padding: 12px 16px; z-index: 99; }
+      .site-nav.open { display: flex; }
+      .nav-toggle { display: flex; }
+      .footer-grid { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container header-grid">
+      <a class="brand" href="../index.html"><span>J</span>OSHB'S DEPO</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="site-nav" id="siteNav">
+        <a href="../index.html">Home</a>
+        <a href="About us.html">About</a>
+        <a href="services.html">Services</a>
+        <a href="online services.html">Online</a>
+        <a href="wholesale.html">Wholesale</a>
+        <a href="contact us.html">Contact</a>
+        <a href="FAQs.html">FAQs</a>
+        <a href="Support.html">Support</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <section class="page-header animate-on-scroll">
+      <p class="eyebrow">FAQs</p>
+      <h1>Answers to common questions about Joshb's Depo and Tastebetter.</h1>
+      <p class="page-intro">Everything you need to know about ordering, pickup, delivery, wholesale accounts, and returns — all in one place.</p>
+    </section>
+
+    <div class="faq-search-wrap">
+      <input class="faq-search" id="faqSearch" type="search" placeholder="Search questions…" aria-label="Search FAQs" />
+    </div>
+
+    <div class="faq-tabs" id="faqTabs">
+      <button class="faq-tab active" data-category="all">All</button>
+      <button class="faq-tab" data-category="ordering">Ordering</button>
+      <button class="faq-tab" data-category="payment">Payment</button>
+      <button class="faq-tab" data-category="delivery">Delivery</button>
+      <button class="faq-tab" data-category="products">Products &amp; Returns</button>
+      <button class="faq-tab" data-category="wholesale">Wholesale</button>
+      <button class="faq-tab" data-category="support">Support</button>
+    </div>
+
+    <section class="page-content">
+
+      <!-- ORDERING -->
+      <div class="faq-category" data-category="ordering">
+        <h2 class="category-title">Ordering</h2>
+        <div class="card-list">
+
+          <article class="faq-card animate-on-scroll">
+            <button class="faq-toggle">
+              <span>How can I place an order?</span>
+              <span class="toggle-icon">+</span>
+            </button>
+            <div class="faq-content">
+              <p>Visit our <a href="online services.html">Online Services</a> page to browse available products, fill your cart, and submit your request. Alternatively, call us or come directly to the depot to place an order in person — our team will assist you on the spot.</p>
+            </div>
+          </article>
+
+          <article class="faq-card animate-on-scroll">
+            <button class="faq-toggle">
+              <span>Can I place an order for pickup?</span>
+              <span class="toggle-icon">+</span>
+            </button>
+            <div class="faq-content">
+              <p>Yes. Select "Pickup" at checkout and choose a convenient time slot. We'll prepare your items and send you a notification once the order is ready for collection at the depot. Bring your order confirmation when you arrive.</p>
+            </div>
+          </article>
+
+          <article class="faq-card animate-on-scroll">
+            <button class="faq-toggle">
+              <span>Is same-day pickup available?</span>
+              <span class="toggle-icon">+</span>
+            </button>
+            <div class="faq-content">
+              <p>Same-day pickup is available for orders placed before 2:00 PM, subject to stock availability. For large or urgent orders, we strongly recommend calling ahead so we can confirm and prepare everything before you arrive.</p>
+            </div>
+          </article>
+
+          <article class="faq-card animate-on-scroll">
+            <button class="faq-toggle">
+              <span>What are your depot operating hours?</span>
+              <span class="toggle-icon">+</span>
+            </button>
+            <div class="faq-content">
+              <p>The depot is open Monday to Saturday, 7:00 AM – 9:00 PM. We are closed on Sundays. Online orders can be submitted at any time and will be processed the next business morning.</p>
+            </div>
+          </article>
+
+          <article class="faq-card animate-on-scroll">
+            <button class="faq-toggle">
+              <span>Can I order on behalf of someone else or a business?</span>
+              <span class="toggle-icon">+</span>
+            </button>
+            <div class="faq-content">
+              <p>Yes. You can place orders on behalf of a business or another person. Just include the correct delivery address or pickup name at checkout. For regular business orders, consider opening a <a href="wholesale.html">wholesale account</a> for better pricing and priority service.</p>
+            </div>
+          </article>
+
+        </div>
+      </div>
+
+      <!-- PAYMENT -->
+      <div class="faq-category" data-category="payment">
+        <h2 class="category-title">Payment</h2>
+        <div class="card-list">
+
+          <article class="faq-card animate-on-scroll">
+            <button class="faq-toggle">
+              <span>What payment methods are accepted?</span>
+              <span class="toggle-icon">+</span>
+            </button>
+            <div class="faq-content">
+              <p>We accept mobile money (MTN &amp; Airtel), bank transfers, debit and credit cards, and cash at the depot. For business customers we can issue invoices — contact us to set this up before your first order.</p>
+            </div>
+          </article>
+
+          <article class="faq-card animate-on-scroll">
+            <button class="faq-toggle">
+              <span>When do I pay — before or after receiving my order?</span>
+              <span class="toggle-icon">+</span>
+            </button>
+            <div class="faq-content">
+              <p>Online and delivery orders require payment upfront to confirm the booking. Pickup customers can also pay on arrival at the depot. Wholesale account holders with approved credit terms may pay within the agreed period after delivery.</p>
+            </div>
+          </article>
+
+          <article class="faq-card animate-on-scroll">
+            <button class="faq-toggle">
+              <span>Can I change or cancel my order?</span>
+              <span class="toggle-icon">+</span>
+            </button>
+            <div class="faq-content">
+              <p>Changes and cancellations are accepted within one hour of placing an order, provided it has not yet been packed or dispatched. Contact us immediately through the <a href="contact us.html">Contact</a> page or by phone. Refunds on cancelled orders are processed within 2–3 business days.</p>
+            </div>
+          </article>
+
+          <article class="faq-card animate-on-scroll">
+            <button class="faq-toggle">
+              <span>Are there order minimums?</span>
+              <span class="toggle-icon">+</span>
+            </button>
+            <div class="faq-content">
+              <p>Online retail orders have a minimum of UGX 50,000. Wholesale orders typically start at UGX 200,000. We can discuss flexible arrangements for regular customers — reach out to discuss your needs.</p>
+            </div>
+          </article>
+
+          <article class="faq-card animate-on-scroll">
+            <button class="faq-toggle">
+              <span>Will I receive a receipt or invoice?</span>
+              <span class="toggle-icon">+</span>
+            </button>
+            <div class="faq-content">
+              <p>Yes. A receipt is issued for every completed order — digitally by email or WhatsApp, and as a printed copy for depot pickups. Wholesale customers receive a formal invoice. Keep your receipt in case you need to reference or return an item.</p>
+            </div>
+          </article>
+
+        </div>
+      </div>
+
+      <!-- DELIVERY -->
+      <div class="faq-category" data-category="delivery">
+        <h2 class="category-title">Delivery</h2>
+        <div class="card-list">
+
+          <article class="faq-card animate-on-scroll">
+            <button class="faq-toggle">
+              <span>Do you offer delivery?</span>
+              <span class="toggle-icon">+</span>
+            </button>
+            <div class="faq-content">
+              <p>Yes. We deliver across Kampala and nearby areas. Delivery takes 1–3 business days depending on your location and order size. Fees are calculated at checkout based on distance and weight.</p>
+            </div>
+          </article>
+
+          <article class="faq-card animate-on-scroll">
+            <button class="faq-toggle">
+              <span>How can I track my delivery?</span>
+              <span class="toggle-icon">+</span>
+            </button>
+            <div class="faq-content">
+              <p>Once your order is dispatched, we send a notification by WhatsApp or email with a delivery update and estimated arrival time. If you need a real-time update, contact us directly on WhatsApp and we'll confirm your rider's status.</p>
+            </div>
+          </article>
+
+          <article class="faq-card animate-on-scroll">
+            <button class="faq-toggle">
+              <span>Where is the depot located?</span>
+              <span class="toggle-icon">+</span>
+            </button>
+            <div class="faq-content">
+              <p>Our depot is in the main market district, easily accessible from major retail routes in Kampala. Visit the <a href="contact us.html">Contact</a> page for the exact address, map pin, and directions.</p>
+            </div>
+          </article>
+
+          <article class="faq-card animate-on-scroll">
+            <button class="faq-toggle">
+              <span>What happens if I miss my delivery?</span>
+              <span class="toggle-icon">+</span>
+            </button>
+            <div class="faq-content">
+              <p>Our rider will attempt to reach you by phone. If we cannot deliver, the order is held at the depot for up to 24 hours. You can arrange a redelivery or pick it up directly. A redelivery fee may apply for the second attempt.</p>
+            </div>
+          </article>
+
+          <article class="faq-card animate-on-scroll">
+            <button class="faq-toggle">
+              <span>Do you deliver on weekends?</span>
+              <span class="toggle-icon">+</span>
+            </button>
+            <div class="faq-content">
+              <p>We deliver Monday to Saturday. Deliveries are not available on Sundays. Orders placed on Saturday afternoons after 3:00 PM are scheduled for Monday morning unless you arrange a Saturday collection at the depot.</p>
+            </div>
+          </article>
+
+        </div>
+      </div>
+
+      <!-- PRODUCTS & RETURNS -->
+      <div class="faq-category" data-category="products">
+        <h2 class="category-title">Products &amp; Returns</h2>
+        <div class="card-list">
+
+          <article class="faq-card animate-on-scroll">
+            <button class="faq-toggle">
+              <span>How do I know the products are fresh?</span>
+              <span class="toggle-icon">+</span>
+            </button>
+            <div class="faq-content">
+              <p>All products display their manufacturing and expiry dates. We manage stock on a first-in, first-out basis and rotate items regularly. Any product close to expiry is removed from sale. If you have concerns about a specific item, our team will check it before packing your order.</p>
+            </div>
+          </article>
+
+          <article class="faq-card animate-on-scroll">
+            <button class="faq-toggle">
+              <span>What types of products does Joshb's Depo stock?</span>
+              <span class="toggle-icon">+</span>
+            </button>
+            <div class="faq-content">
+              <p>We stock a wide range of fast-moving consumer goods (FMCG) including packaged foods, beverages, household essentials, and personal care products. Our range covers both everyday basics and branded items. Visit the <a href="online services.html">Online Services</a> page to browse the current product list.</p>
+            </div>
+          </article>
+
+          <article class="faq-card animate-on-scroll">
+            <button class="faq-toggle">
+              <span>What is your return policy?</span>
+              <span class="toggle-icon">+</span>
+            </button>
+            <div class="faq-content">
+              <p>Unopened items in their original packaging may be returned within 7 days of purchase with a valid receipt. Defective or damaged goods are replaced immediately once proof of purchase is provided. We do not accept returns on items that have been opened unless the product itself is faulty.</p>
+            </div>
+          </article>
+
+          <article class="faq-card animate-on-scroll">
+            <button class="faq-toggle">
+              <span>Do you offer samples before bulk orders?</span>
+              <span class="toggle-icon">+</span>
+            </button>
+            <div class="faq-content">
+              <p>Yes, samples are available for selected products when stock allows. This is particularly useful before placing large wholesale orders. Contact our depot team to request samples and we'll arrange it ahead of your order.</p>
+            </div>
+          </article>
+
+          <article class="faq-card animate-on-scroll">
+            <button class="faq-toggle">
+              <span>What if an item I need is out of stock?</span>
+              <span class="toggle-icon">+</span>
+            </button>
+            <div class="faq-content">
+              <p>Let us know what you need and we'll add it to the restock list and notify you when it arrives. For wholesale customers, we can often source specific products on request. Reach us via <a href="contact us.html">Contact</a> or WhatsApp to check availability and lead times.</p>
+            </div>
+          </article>
+
+        </div>
+      </div>
+
+      <!-- WHOLESALE -->
+      <div class="faq-category" data-category="wholesale">
+        <h2 class="category-title">Wholesale &amp; Business</h2>
+        <div class="card-list">
+
+          <article class="faq-card animate-on-scroll">
+            <button class="faq-toggle">
+              <span>Do you offer wholesale pricing?</span>
+              <span class="toggle-icon">+</span>
+            </button>
+            <div class="faq-content">
+              <p>Yes. Wholesale pricing is available for bulk purchases across most product categories. Prices vary by product and quantity. Share your order requirements and we'll provide a tailored quote — visit the <a href="wholesale.html">Wholesale</a> page to get started.</p>
+            </div>
+          </article>
+
+          <article class="faq-card animate-on-scroll">
+            <button class="faq-toggle">
+              <span>How do I open a wholesale account?</span>
+              <span class="toggle-icon">+</span>
+            </button>
+            <div class="faq-content">
+              <p>Register by contacting us through the <a href="contact us.html">Contact</a> page or visiting the depot with your business details. We'll walk you through account setup, pricing tiers, and ordering terms. Most accounts are activated within one business day.</p>
+            </div>
+          </article>
+
+          <article class="faq-card animate-on-scroll">
+            <button class="faq-toggle">
+              <span>What discounts apply to bulk orders?</span>
+              <span class="toggle-icon">+</span>
+            </button>
+            <div class="faq-content">
+              <p>Discounts increase with order volume. Specific rates depend on the products and quantities involved. Request a quote for your exact mix and we'll show you the best pricing available for that order.</p>
+            </div>
+          </article>
+
+          <article class="faq-card animate-on-scroll">
+            <button class="faq-toggle">
+              <span>Can I get credit terms as a wholesale customer?</span>
+              <span class="toggle-icon">+</span>
+            </button>
+            <div class="faq-content">
+              <p>Credit terms are available for established wholesale customers with a consistent order history. Eligibility is assessed on a case-by-case basis. Contact us to discuss your situation and we'll advise on the steps required.</p>
+            </div>
+          </article>
+
+          <article class="faq-card animate-on-scroll">
+            <button class="faq-toggle">
+              <span>Do you supply supermarkets, restaurants, or institutions?</span>
+              <span class="toggle-icon">+</span>
+            </button>
+            <div class="faq-content">
+              <p>Yes. We supply retail shops, supermarkets, restaurants, schools, and other institutions across Kampala. If you have regular large-volume needs, we can set up a standing supply arrangement with scheduled deliveries. Reach out to discuss terms.</p>
+            </div>
+          </article>
+
+        </div>
+      </div>
+
+      <!-- SUPPORT -->
+      <div class="faq-category" data-category="support">
+        <h2 class="category-title">Support</h2>
+        <div class="card-list">
+
+          <article class="faq-card animate-on-scroll">
+            <button class="faq-toggle">
+              <span>How can I contact the support team?</span>
+              <span class="toggle-icon">+</span>
+            </button>
+            <div class="faq-content">
+              <p>The fastest way to reach us is by WhatsApp or phone during business hours (Mon–Sat, 7 AM–9 PM). You can also use the <a href="contact us.html">Contact</a> page to send a message and we'll reply within 24 hours. For order issues, have your order number ready.</p>
+            </div>
+          </article>
+
+          <article class="faq-card animate-on-scroll">
+            <button class="faq-toggle">
+              <span>How do I get updates on new products and offers?</span>
+              <span class="toggle-icon">+</span>
+            </button>
+            <div class="faq-content">
+              <p>Subscribe to our newsletter and follow us on social media for new arrivals, seasonal promotions, and exclusive deals. We share updates regularly so you always know what's in stock and what's on offer.</p>
+            </div>
+          </article>
+
+          <article class="faq-card animate-on-scroll">
+            <button class="faq-toggle">
+              <span>My order arrived damaged. What should I do?</span>
+              <span class="toggle-icon">+</span>
+            </button>
+            <div class="faq-content">
+              <p>Take a clear photo of the damaged item and packaging, then contact us immediately via WhatsApp or the <a href="contact us.html">Contact</a> page. We'll review the case and arrange a replacement or refund as quickly as possible — usually within the same business day.</p>
+            </div>
+          </article>
+
+          <article class="faq-card animate-on-scroll">
+            <button class="faq-toggle">
+              <span>I received the wrong item. How is this resolved?</span>
+              <span class="toggle-icon">+</span>
+            </button>
+            <div class="faq-content">
+              <p>We apologise for the mix-up. Contact us with your order number and a description (or photo) of the incorrect item. We'll arrange a collection and send the correct product at no extra cost, typically within 1 business day.</p>
+            </div>
+          </article>
+
+          <article class="faq-card animate-on-scroll">
+            <button class="faq-toggle">
+              <span>Can I give feedback about a product or my experience?</span>
+              <span class="toggle-icon">+</span>
+            </button>
+            <div class="faq-content">
+              <p>Absolutely — your feedback is how we improve. Use the <a href="contact us.html">Contact</a> page, drop us a WhatsApp message, or speak to any member of the depot team directly. We read every message and act on recurring suggestions.</p>
+            </div>
+          </article>
+
+        </div>
+      </div>
+
+      <p class="no-results" id="noResults">No questions match your search. Try different words or <a href="contact us.html" style="color:#c8502a">ask us directly</a>.</p>
+
+    </section>
+
+    <!-- CTA -->
+    <section class="still-have-questions animate-on-scroll">
+      <div class="questions-content">
+        <h2>Still have questions?</h2>
+        <p>Our team is ready to help. Reach out and we'll get back to you as soon as possible.</p>
+        <div class="questions-actions">
+          <a href="contact us.html" class="btn btn-primary">Contact Us</a>
+          <a href="online services.html" class="btn btn-secondary">Online Services</a>
+          <a href="Support.html" class="btn btn-ghost">Visit Support</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <p>Joshb's Depo · Tastebetter</p>
+        <p>Support and questions for depot customers.</p>
+      </div>
+      <nav class="footer-nav">
+        <a href="../index.html">Home</a>
+        <a href="About us.html">About</a>
+        <a href="contact us.html">Contact</a>
+        <a href="Support.html">Support</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="../app.js"></script>
+  <script>
+    // Mobile nav toggle
+    document.getElementById('navToggle').addEventListener('click', function () {
+      document.getElementById('siteNav').classList.toggle('open');
+    });
+
+    // Accordion
+    document.querySelectorAll('.faq-toggle').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const card = btn.closest('.faq-card');
+        const isOpen = card.classList.contains('open');
+        // close all
+        document.querySelectorAll('.faq-card.open').forEach(c => c.classList.remove('open'));
+        if (!isOpen) card.classList.add('open');
+      });
+    });
+
+    // Category tabs
+    document.getElementById('faqTabs').addEventListener('click', e => {
+      const tab = e.target.closest('.faq-tab');
+      if (!tab) return;
+      document.querySelectorAll('.faq-tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      const cat = tab.dataset.category;
+      document.querySelectorAll('.faq-category').forEach(section => {
+        section.dataset.hidden = (cat !== 'all' && section.dataset.category !== cat) ? 'true' : 'false';
+      });
+      checkNoResults();
+    });
+
+    // Search
+    document.getElementById('faqSearch').addEventListener('input', function () {
+      const q = this.value.toLowerCase().trim();
+      // reset tab UI to "all" when searching
+      document.querySelectorAll('.faq-tab').forEach(t => t.classList.remove('active'));
+      document.querySelector('[data-category="all"]').classList.add('active');
+
+      document.querySelectorAll('.faq-category').forEach(section => {
+        section.dataset.hidden = 'false';
+      });
+
+      document.querySelectorAll('.faq-card').forEach(card => {
+        const text = card.textContent.toLowerCase();
+        card.dataset.hidden = (q && !text.includes(q)) ? 'true' : 'false';
+      });
+
+      // Hide category sections that have no visible cards
+      document.querySelectorAll('.faq-category').forEach(section => {
+        const visible = [...section.querySelectorAll('.faq-card')].some(c => c.dataset.hidden !== 'true');
+        section.dataset.hidden = visible ? 'false' : 'true';
+      });
+
+      checkNoResults();
+    });
+
+    function checkNoResults() {
+      const anyVisible = [...document.querySelectorAll('.faq-category')].some(s => s.dataset.hidden !== 'true');
+      document.getElementById('noResults').style.display = anyVisible ? 'none' : 'block';
+    }
+  </script>
+</body>
+</html>
